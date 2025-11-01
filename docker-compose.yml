@@ -1,0 +1,74 @@
+services:
+  
+ 
+
+
+  # PostgreSQL Database - Shared by Keycloak and Backend
+  postgres:
+    image: postgres:16-alpine
+    container_name: vendymaticLand-postgres
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - vendymaticLand-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # pgAdmin - PostgreSQL Management Tool
+
+  # Backend API - Using local npm start instead
+  backend:
+    image: ghcr.io/wofurani/vendymaticbackendlandingpage-backend:sha-7fa0bc9
+    container_name: vendymaticLand-backend
+    pull_policy: always
+    env_file:
+      - .env
+    environment:
+      PORT: ${PORT}
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PORT: 5432
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+    networks:
+      - vendymaticLand-network
+    restart: unless-stopped
+
+  # Frontend Application - Using local npm run dev instead
+  frontend:
+    image: ghcr.io/wofurani/landpagefontvendymatic:20251101-222845
+    container_name: vendymaticLand-frontend
+    pull_policy: always
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - vendymaticLand-network
+    restart: unless-stopped
+
+networks:
+  vendymaticLand-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+ 
