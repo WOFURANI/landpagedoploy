@@ -27,7 +27,7 @@ services:
 
   # Backend API - Using local npm start instead
   backend:
-    image: ghcr.io/wofurani/vendymaticbackendlandingpage-backend:sha-d49c553
+    image: ghcr.io/wofurani/vendymaticbackendlandingpage-backend:sha-7deedd5
     container_name: vendymaticLand-backend
     pull_policy: always
     env_file:
