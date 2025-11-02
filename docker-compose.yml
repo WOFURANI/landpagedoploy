@@ -53,7 +53,7 @@ services:
 
   # Frontend Application - Using local npm run dev instead
   frontend:
-    image: ghcr.io/wofurani/landpagefontvendymatic:20251102-001607
+    image: ghcr.io/wofurani/landpagefontvendymatic:20251102-002407
     container_name: vendymaticLand-frontend
     pull_policy: always
     ports:
