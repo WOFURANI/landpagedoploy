@@ -27,7 +27,7 @@ services:
 
   # Backend API - Using local npm start instead
   backend:
-    image: ghcr.io/wofurani/vendymaticbackendlandingpage-backend:sha-fd3dc52
+    image: ghcr.io/wofurani/vendymaticbackendlandingpage-backend:sha-d49c553
     container_name: vendymaticLand-backend
     pull_policy: always
     env_file:
@@ -38,7 +38,6 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
-      CLIENT_URL: ${CLIENT_URL}
       DB_PORT: 5432
     depends_on:
       postgres:
