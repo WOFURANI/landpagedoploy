@@ -27,7 +27,7 @@ services:
 
   # Backend API - Using local npm start instead
   backend:
-    image: ghcr.io/wofurani/vendymaticbackendlandingpage-backend:sha-7fa0bc9
+    image: ghcr.io/wofurani/vendymaticbackendlandingpage-backend:sha-fd3dc52
     container_name: vendymaticLand-backend
     pull_policy: always
     env_file:
@@ -51,7 +51,7 @@ services:
 
   # Frontend Application - Using local npm run dev instead
   frontend:
-    image: ghcr.io/wofurani/landpagefontvendymatic:20251102-002407
+    image: ghcr.io/wofurani/landpagefontvendymatic:20251102-003255
     container_name: vendymaticLand-frontend
     pull_policy: always
     ports:
